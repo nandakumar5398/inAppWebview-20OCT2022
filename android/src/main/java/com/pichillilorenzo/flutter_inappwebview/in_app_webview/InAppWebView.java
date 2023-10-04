@@ -226,11 +226,16 @@ final public class InAppWebView extends InputAwareWebView implements InAppWebVie
     WebSettings settings = getSettings();
 
     int nightModeFlags = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-
+    Log.w("InAppWebView", "Initiating");
     if(nightModeFlags == Configuration.UI_MODE_NIGHT_YES){
       if(WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK_STRATEGY)){
         Log.w("InAppWebView", "setForceDark supported");
-        WebSettingsCompat.setForceDark(settings, WebSettingsCompat.FORCE_DARK_ON);
+
+        WebSettingsCompat.setForceDark(settings, WebSettingsCompat.FORCE_DARK_AUTO);
+        WebSettingsCompat.setAlgorithmicDarkeningAllowed(settings, true);
+      }
+      else{
+        Log.w("InAppWebView", "setForceDark not supported");
       }
     }
 
